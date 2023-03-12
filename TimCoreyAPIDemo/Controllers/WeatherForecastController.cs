@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using TimCoreyAPIDemo.Models;
 
-namespace TimCoreyAPIDemo.Controllers
+namespace TimCoreyAPIDemo.Controllers.API
 {
     [ApiController]
-    [Route("[api/controller]")]
+    [Route("API/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -18,7 +19,7 @@ namespace TimCoreyAPIDemo.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet("GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

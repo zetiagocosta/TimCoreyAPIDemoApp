@@ -1,30 +1,54 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TimCoreyAPIDemo.Models;
 
-
-namespace TimCoreyAPIDemo.Controllers
+namespace TimCoreyAPIDemo.Controllers.API
 {
-    [Route("api/[controller]")]
+    /// <summary>
+    /// Hi
+    /// </summary>
+    [Route("API/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
+        List<Person> users = new List<Person>();
+
+        public UsersController(){
+            users.Add(new Person { FirstName = "Jose", LastName = "Costa", Id = 1 });
+            users.Add(new Person { FirstName = "Tiago", LastName = "Costa", Id = 2 });
+            users.Add(new Person { FirstName = "Jose", LastName = "Tiago", Id = 3 });
+        }
+
         // GET: api/Users
+        /// <summary>
+        /// Gets a list of users.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Person> Get()
         {
-            return new string[] { "value1", "value2" };
+            return users;
         }
 
         // GET api/Users/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Person Get(int id)
         {
-            return "value";
+            return users.Where(x => x.Id == id).First();
+        }
+
+        [HttpGet("GetFirstNames/{userId:int}/{age:int}")]
+        public List<string> GetFirstNames(int userId, int age)
+        {
+            return users.Where(x => x.Id > userId)
+                .Where(x => x.Age > age)
+                .Select(x => x.FirstName).ToList();
         }
 
         // POST api/Users
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(Person val)
         {
+            users.Add(val);
         }
 
         // PUT api/Users/5

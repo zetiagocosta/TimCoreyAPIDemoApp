@@ -1,4 +1,4 @@
-namespace TimCoreyAPIDemo
+namespace TimCoreyAPIDemo.Models
 {
     public class WeatherForecast
     {
